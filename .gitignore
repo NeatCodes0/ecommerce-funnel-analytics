@@ -4,10 +4,8 @@ env/
 __pycache__/
 *.pyc
 
-# Raw Large Datasets & Database
+# Raw Large Datasets & DuckDB file
 data/raw/
-*.csv
-*.parquet
 database/analytics.duckdb
 database/*.duckdb*
 .duckdb

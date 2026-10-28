@@ -1,0 +1,9 @@
+visitor_segment,duration_bracket,total_sessions,carts,purchases,abandoned_carts,session_cvr_pct,cart_abandonment_pct,avg_duration_sec
+New Visitor,1 - 5 mins (Quick Browse),38748,15140,1228,13989,3.17,92.4,149.6
+New Visitor,5 - 15 mins (Engaged),24624,15459,2685,12820,10.9,82.93,539.5
+New Visitor,< 1 min (Bounce/Skim),303746,61718,206,61700,0.07,99.97,5.5
+New Visitor,> 15 mins (Deep Dive),32248,23079,6346,16783,19.68,72.72,63815.7
+Returning Visitor,1 - 5 mins (Quick Browse),49272,25683,2850,23781,5.78,92.59,155.6
+Returning Visitor,5 - 15 mins (Engaged),37985,25551,4641,21596,12.22,84.52,544.6
+Returning Visitor,< 1 min (Bounce/Skim),328883,23036,2708,22964,0.82,99.69,2.8
+Returning Visitor,> 15 mins (Deep Dive),56123,38410,8662,30258,15.43,78.78,21220.7
