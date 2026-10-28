@@ -2,6 +2,7 @@
 
 **High-Throughput Vectorized Clickstream Analytics, Funnel Sessionization & Statistical Inference**
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ecommerce-funnel-analytics.streamlit.app/)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)
 ![DuckDB](https://img.shields.io/badge/DuckDB-1.0%2B-FEE000?style=for-the-badge&logo=duckdb&logoColor=black)
 ![Pandas](https://img.shields.io/badge/Pandas-2.2%2B-150458?style=for-the-badge&logo=pandas&logoColor=white)
@@ -11,7 +12,7 @@
 
 A production-grade, serverless analytical pipeline diagnosing checkout drop-offs, session-level friction, and visitor conversion behavior across **4.1M+ raw clickstream events**.
 
-[Key Findings](#-executive-summary--critical-business-findings) • [Architecture & ADRs](#%EF%B8%8F-system-architecture--technical-decisions) • [Execution Pipeline](#-chronological-execution-phases) • [Statistical Rigor](#-statistical-hypothesis-testing--validation) • [Interactive Dashboard](#-interactive-web-app--visualizations) • [Quickstart](#-reproduction--quickstart)
+[Live Application](https://ecommerce-funnel-analytics.streamlit.app/) • [Key Findings](#-executive-summary--critical-business-findings) • [Architecture & ADRs](#%EF%B8%8F-system-architecture--technical-decisions) • [Statistical Rigor](#-statistical-hypothesis-testing--validation) • [Interactive Dashboard](#-interactive-web-app--visualizations) • [Quickstart](#-reproduction--quickstart)
 
 ---
 
@@ -19,7 +20,7 @@ A production-grade, serverless analytical pipeline diagnosing checkout drop-offs
 
 Across **873,960 unique browsing sessions** and **399,664 individual users** in October 2019:
 
-```
+```text
 [1,862,164 Views]
        │
        ▼  (27.69% View-to-Cart Conversion)
@@ -30,15 +31,15 @@ Across **873,960 unique browsing sessions** and **399,664 individual users** in 
 ```
 
 ### Core Business Takeaways
-1. **The Cart is Used as a Wishlist:** Unlike traditional e-commerce where cart-add rates hover around 5–10%, users here exhibit a **27.69% view-to-cart rate** alongside an **89.40% cart abandonment rate**. The shopping cart functions primarily as a temporary holding bin during window shopping.
-2. **Quantified Revenue Opportunity:** **203,891 sessions** abandoned carts without purchasing, leaving **$5,512,701.50** in unrecovered merchandise value. Reducing abandonment by just 200 basis points (down to 87.40%) unlocks ~$120,000+ in monthly gross sales.
+1. **The Cart Functions as a Wishlist:** Unlike traditional e-commerce platforms where cart-add rates hover around 5–10%, users exhibit a **27.69% view-to-cart rate** alongside an **89.40% cart abandonment rate**. The shopping cart functions primarily as a temporary holding bin during window shopping.
+2. **Quantified Revenue Opportunity:** **203,891 sessions** abandoned carts without completing a purchase, leaving **$5,512,701.50** in unrecovered merchandise value. Reducing abandonment by just 200 basis points (down to 87.40%) unlocks ~$120,000+ in monthly gross sales.
 3. **Session Duration as an Intent Filter:** Sessions under 60 seconds bounce with virtually zero purchase conversion (<0.5%), while sessions crossing 5 minutes yield conversion rates above 8.5%.
 
 ---
 
 ## System Architecture & Technical Decisions
 
-```
+```text
 ┌────────────────────────────────┐
 │   Raw Clickstream (4.1M CSV)   │
 └───────────────┬────────────────┘
@@ -65,12 +66,12 @@ Across **873,960 unique browsing sessions** and **399,664 individual users** in 
 
 ### Architectural Decision Records (ADRs)
 
-| Component        | Choice               | Alternatives Rejected     | Rationale                                                                                                              |
-| :--------------- | :------------------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------- |
-| **Engine**       | **DuckDB**           | PostgreSQL, SQLite        | Columnar, vectorized execution processed 4.1M rows in **3.98s** locally without configuring background server daemons. |
-| **Currency**     | **DECIMAL(10,2)**    | FLOAT, DOUBLE             | Eliminates IEEE 754 floating-point drift across millions of price additions.                                           |
-| **Funnel Logic** | **Conditional CTEs** | Self-Joins (`JOIN ON`)    | Reduced multi-stage funnel calculation from an $O(N^2)$ join into a single linear sequential scan.                     |
-| **Presentation** | **Streamlit + Code** | Power BI, Tableau Desktop | Full Python reproducibility, git-versioned code, zero vendor lock-in, and instant cloud deployability.                 |
+| Component        | Choice                             | Alternatives Rejected     | Rationale                                                                                                  |
+| :--------------- | :--------------------------------- | :------------------------ | :--------------------------------------------------------------------------------------------------------- |
+| **Engine**       | **DuckDB**                         | PostgreSQL, SQLite        | Columnar, vectorized execution processed 4.1M rows in **3.98s** locally without background server daemons. |
+| **Currency**     | **DECIMAL(10,2)**                  | FLOAT, DOUBLE             | Eliminates IEEE 754 floating-point drift across millions of price additions.                               |
+| **Funnel Logic** | **Conditional Aggregation (CTEs)** | Self-Joins (`JOIN ON`)    | Reduced multi-stage funnel calculation from an $O(N^2)$ join into a single linear sequential scan.         |
+| **Presentation** | **Streamlit + Code**               | Power BI, Tableau Desktop | Full Python reproducibility, git-versioned code, zero vendor lock-in, and instant cloud deployability.     |
 
 ---
 
@@ -99,8 +100,9 @@ Across **873,960 unique browsing sessions** and **399,664 individual users** in 
 
 The interactive Streamlit interface provides real-time cohort filtering, KPI cards, and brand opportunity drill-downs:
 
-- **Launch command:** `streamlit run src/app.py`
-- **Asset generation:** Run `python src/generate_visuals.py` to regenerate static assets:
+* **Live Demo:** [ecommerce-funnel-analytics.streamlit.app](https://ecommerce-funnel-analytics.streamlit.app/)
+* **Local Launch:** `streamlit run src/app.py`
+* **Static Assets:** Run `python src/generate_visuals.py` to regenerate static assets:
   - `dashboards/assets/funnel_waterfall.png`
   - `dashboards/assets/duration_conversion_curve.png`
   - `dashboards/assets/daily_revenue_vs_abandoned.png`
@@ -136,7 +138,7 @@ ecommerce-funnel-analytics/
 
 ---
 
-## Reproduction & QuickStart
+## Reproduction & Quickstart
 
 1. **Clone the repository:**
    ```bash
@@ -160,7 +162,7 @@ ecommerce-funnel-analytics/
    python src/generate_visuals.py
    ```
 
-4. **Launch Dashboard:**
+4. **Launch Dashboard Locally:**
    ```bash
    streamlit run src/app.py
    ```
